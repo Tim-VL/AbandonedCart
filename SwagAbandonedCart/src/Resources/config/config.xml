@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Abandoned Cart Email Configuration</title>
+        <title lang="de-DE">E-Mail-Konfiguration für abgebrochene Warenkörbe</title>
+
+        <input-field>
+            <name>mailSubject</name>
+            <label>Email Subject</label>
+            <label lang="de-DE">E-Mail Betreff</label>
+            <placeholder>Email Subject</placeholder>
+            <placeholder lang="de-DE">E-Mail Betreff</placeholder>
+        </input-field>
+
+        <component name="sw-text-editor">
+            <name>mailMessage</name>
+            <label>Email Message</label>
+            <label lang="de-DE">E-Mail Nachricht</label>
+            <helpText>
+                Set a mail template message using keywords 
+                '[firstname]' => 'Customer Firstname',
+                '[lastname]' => 'Customer Lastname',
+                '[sales_channel]' => 'Sales Channel',
+                '[products]' => 'Products',
+                '[redirect]' => 'Redirect To Checkout',
+                '[admin]' => 'Admin Name (Owner)'
+            </helpText>
+            <helpText lang="de-DE">
+                Legen Sie eine E-Mail-Vorlagennachricht mit Schlüsselwörtern fest
+                '[firstname]' => 'Kundenvorname',
+                '[lastname]' => 'Nachname des Kunden',
+                '[sales_channel]' => 'Vertriebskanal',
+                '[products]' => 'Produkte',
+                '[redirect]' => 'Weiterleitung zur Kasse',
+                '[admin]' => 'Admin-Name (Eigentümer)'
+            </helpText>
+            <placeholder>
+                Hi [firstname] [lastname], You left the following cart products at [sales_channel] - [products] click [redirect] to checkout your cart products.  Thanks and Regards [admin], [sales_channel]
+            </placeholder>
+            <placeholder lang="de-DE">
+                Hallo [Vorname] [Nachname], Sie haben die folgenden Einkaufswagenprodukte auf [Verkaufskanal] gelassen - [Produkte] Klicken Sie auf [Weiterleitung], um Ihre Einkaufswagenprodukte zur Kasse zu bringen. Danke und Grüße [admin], [sales_channel]
+            </placeholder>
+        </component>
+    </card>
+    <card>
+        <title>Abandoned Cart Notifications Configuration</title>
+        <title lang="de-DE">Konfiguration der Benachrichtigungen über abgebrochene Warenkörbe</title>
+        
+        <input-field type="bool">
+            <name>enableMaxTimesNotification</name>
+            <label>Enable Maximum Notification Limit</label>
+            <label lang="de-DE">Maximale Benachrichtigungsgrenze aktivieren</label>
+            <helpText>Enable or disable the maximum notification limit per customer</helpText>
+            <helpText lang="de-DE">Aktivieren oder deaktivieren Sie die maximale Benachrichtigungsgrenze pro Kunde</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>maxTimesNotification</name>
+            <label>Max Automatic Notifications per customer</label>
+            <label lang="de-DE">Maximale automatische Benachrichtigungen pro Kunde</label>
+            <helpText>Max number of times a user will get notified automatically</helpText>
+            <helpText lang="de-DE">Maximale Häufigkeit, mit der ein Benutzer automatisch benachrichtigt wird</helpText>
+            <defaultValue>5</defaultValue>
+            <sw-field v-show="SwagAbandonedCart.config.enableMaxTimesNotification"/>
+        </input-field>
+
+        <input-field type="int">
+            <name>daysInCart</name>
+            <label>Days for Abandoned Items in Cart (Default 5)</label>
+            <label lang="de-DE">Tage für zurückgelassene Artikel im Warenkorb (Standard 5)</label>
+            <helpText>Notifiy customers who have bandoned cart for more than these number of days</helpText>
+            <helpText lang="de-DE">Benachrichtigen Sie Kunden, die den Warenkorb länger als diese Anzahl von Tagen verlassen haben</helpText>
+            <defaultValue>5</defaultValue>
+            <sw-field v-show="SwagAbandonedCart.config.enableMaxTimesNotification"/>
+        </input-field>
+
+    </card>
+
+</config>

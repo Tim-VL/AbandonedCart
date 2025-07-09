@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Swag\Abandoned\Core\Notification\CartNotificationDefinition">
+            <tag name="shopware.entity.definition" entity="wk_abandoned_cart_notification"/>
+        </service>
+        
+        <!-- <service id="Swag\Abandoned\Core\Content\Custom\CustomCartDefinition">
+            <tag name="shopware.entity.definition" entity="cart" />
+        </service> -->
+
+        <service id="Swag\Abandoned\Core\Content\CustomCart\CustomCartDefinition">
+            <tag name="shopware.entity.definition" entity="wk_custom_cart"/>
+        </service>
+
+        <service id="Swag\Abandoned\Service\AbandonedCartService" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="currency.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Mail\Service\MailService"/>
+            <argument type="service" id="wk_abandoned_cart_notification.repository"/>
+            <argument type="service" id="wk_custom_cart.repository"/>
+            <argument type="service" id="user.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+        </service>
+        <service id="Swag\Abandoned\Controller\Api\AbandonedCartApiController">
+            <tag name="controller.service_arguments"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Swag\Abandoned\Service\AbandonedCartService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+        <service id="Swag\Abandoned\Controller\Storefront\AbandonedCartStorefrontController">
+            <tag name="controller.service_arguments"/>
+            <argument type="service" id="Swag\Abandoned\Service\AbandonedCartService"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+        <service id="Swag\Abandoned\ScheduledTask\AbandonedCartNotificationTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+        <service id="Swag\Abandoned\ScheduledTask\AbandonedCartNotificationTaskHandler">
+            <tag name="messenger.message_handler" />
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="Swag\Abandoned\Service\AbandonedCartService"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+        </service>
+        <service id="Swag\Abandoned\Subscriber\AbandonedCartEventSubscriber">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="wk_abandoned_cart_notification.repository"/>
+            <argument type="service" id="order_customer.repository"/>
+            <argument type="service" id="wk_custom_cart.repository"/>
+        </service>
+    </services>
+</container>

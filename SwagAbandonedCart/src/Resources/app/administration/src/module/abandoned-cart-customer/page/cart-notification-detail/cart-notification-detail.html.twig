@@ -1,0 +1,119 @@
+{% block abandoned_cart_notification_detail %}
+    <sw-page class="abandoned-cart-detail">
+        {% block abandoned_cart_notification_detail_smart_bar_action %}
+            <template #smart-bar-actions>
+                <sw-button :routerLink="{ name: 'abandoned.cart.customer.index' }">
+                    {{ $t('abandoned-cart-customer.detail.cancelButtonText') }}
+                </sw-button>
+                <sw-button-process
+                    :disabled="isLoading"
+                    variant="primary"
+                    :processSuccess="processSuccess"
+                    @click="onClickNotify">
+                    {{ $t('abandoned-cart-customer.detail.notifyButtonText') }}
+                </sw-button-process>
+            </template>
+        {% endblock %}
+        {% block abandoned_cart_notification_detail_content %}
+        <template #content>
+            <div class="abandoned-cart-detail__content">
+                <sw-card-view>
+                    <sw-card v-if="customer" :isLoading="isLoading" :title="$tc('abandoned-cart-customer.detail.headingTitle')">
+                        <sw-container columns="80px 1fr max-content"
+                                            gap="0px 30px"
+                                            align="center"
+                                            class="sw-order-user-card__container">
+                            {% block abandoned_cart_notification_detail_user_card_avatar %}
+                                <sw-avatar size="80px"
+                                            :color="$route.meta.$module.color"
+                                            :firstName="customer.firstName"
+                                            :lastName="customer.lastName">
+                                </sw-avatar>
+                            {% endblock %}
+                            {% block abandoned_cart_notification_detail_card_metadata_customer_name %}
+                                    <div class="sw-order-user-card__metadata-user-name">
+                                        <router-link 
+                                            :to="{name: 'sw.customer.detail', params: {id: customer.id}}"
+                                            class="abandoned-cart-customer-link">
+                                            {{ customer.firstName }} {{ customer.lastName }}
+                                        </router-link>
+                                    </div>
+                                    <sw-description-list>
+                                    <template>
+                                        <dl>
+                                            <dt>{{ $tc('abandoned-cart-customer.detail.labelEmail') }}</dt>
+                                            <dd> {{ customer.email }}</dd>
+                                        </dl>
+                                    </template>
+                                    <template>
+                                        <dl>
+                                            <dt>{{ $tc('abandoned-cart-customer.detail.labelSalesChannel') }}</dt>
+                                            <dd> {{ customer.salesChannel.name }}</dd>
+                                        </dl>
+                                    </template>
+                                </sw-description-list>
+                                {% endblock %}
+                        </sw-container>
+                        {% block abandoned_cart_notification_detail_base_line_items_card_rows %}
+                            <sw-container :isLoading="isLoading"
+                                        slot="grid"
+                                        type="row">
+                                {% block abandoned_cart_notification_detail_base_line_items_grid %}
+                                    <abandoned-cart-item-grid :cart="cart" :currency="currency" ref="sw-order-line-item-grid"></abandoned-cart-item-grid>
+                                {% endblock %}
+                                
+                                {% block abandoned_cart_notification_detail_base_line_items_summary %}
+                                    <sw-card-section divider="top" secondary slim>
+                                        <sw-container columns="1fr 440px"
+                                                    class="sw-order-detail__summary">
+                                            <dl class="sw-description-list sw-order-detail__summary-data">
+                                                {% block abandoned_cart_notification_detail_base_line_items_summary_amount %}
+                                                    <div class="abandoned-row">
+                                                        <dl>
+                                                            <dt>{{ $tc('sw-order.detailBase.summaryLabelAmount') }}</dt>
+                                                            <dd>{{ currencyFilter(cart.price.positionPrice, currency.isoCode) }}</dd>
+                                                        </dl>
+                                                    </div>
+                                                {% endblock %}
+
+                                                {% block abandoned_cart_notification_detail_base_line_items_summary_amount_without_tax %}
+                                                    <div class="abandoned-row">
+                                                        <dl>
+                                                            <dt><strong>{{ $tc('sw-order.detailBase.summaryLabelAmountWithoutTaxes') }}</strong></dt>
+                                                            <dd><strong>{{  currencyFilter(cart.price.netPrice, currency.isoCode) }}</strong></dd>
+                                                        </dl>
+                                                    </div>
+                                                {% endblock %}
+
+                                                {% block abandoned_cart_notification_detail_base_line_items_summary_taxes %}
+                                                    <template v-for="calculatedTax in sortedCalculatedTaxes">
+                                                        <div class="abandoned-row">
+                                                            <dl>
+                                                                <dt>{{ $tc('sw-order.detailBase.summaryLabelTaxes', 1, { taxRate: calculatedTax.taxRate }) }}</dt>
+                                                                <dd>{{  currencyFilter(calculatedTax.tax, currency.isoCode) }}</dd>
+                                                            </dl>
+                                                        </div>
+                                                    </template>
+                                                {% endblock %}
+
+                                                {% block abandoned_cart_notification_detail_base_line_items_summary_amount_total %}
+                                                    <div class="abandoned-row">
+                                                        <dl>
+                                                            <dt><strong>{{ $tc('sw-order.detailBase.summaryLabelAmountTotal') }}</strong></dt>
+                                                            <dd><strong>{{  currencyFilter(cart.price.totalPrice, currency.isoCode)   }}</strong></dd>
+                                                        </dl>
+                                                    </div>
+                                                {% endblock %}
+                                            </dl>       
+                                        </sw-container>
+                                    </sw-card-section>
+                                {% endblock %}
+                            </sw-container>
+                        {% endblock %}
+                    </sw-card>
+                </sw-card-view>
+            </div>
+        </template>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

@@ -1,0 +1,19 @@
+.abandoned-cart-list {
+    .sw-search-bar__type {
+        background-color: rgb(78, 169, 244) !important;
+    }
+
+    .sw-data-grid__wrapper .sw-data-grid__bulk {
+        margin-left: 45px;
+    }
+
+    .bulk-link {
+        display: none;
+    }
+    .sw-data-grid__wrapper {
+        padding-bottom: 30px;
+    }
+    .sw-card {
+        max-width: none !important;
+    }
+}

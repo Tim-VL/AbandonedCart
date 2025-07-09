@@ -1,0 +1,212 @@
+{% block abandoned_cart_notification %}
+    <sw-page class="abandoned-cart-list">
+        {% block wk_abandoned_cart_list_search_bar %}
+            <template #search-bar>
+                <sw-search-bar 
+                    :initialSearchType="$tc('abandoned-cart-customer.general.headlineAbandonedCart')"
+                    :initialSearch="term"
+                    @search="onSearch">
+                </sw-search-bar>
+            </template>
+        {% endblock %}
+
+        <template #smart-bar-header>
+            <h2>
+                {% block abandoned_cart_notification_smart_bar_header_title_text %}
+                    {{ $tc('sw-settings.index.title') }}
+                    <sw-icon name="regular-chevron-right-s" small></sw-icon>
+                    {{ $tc('abandoned-cart-customer.general.mainMenuItemGeneral') }}
+                {% endblock %}
+
+                {% block abandoned_cart_notification_smart_bar_header_amount %}
+                    <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                        ({{ total }})
+                    </span>
+                {% endblock %}
+            </h2>
+        </template>
+
+        {% block abandoned_cart_notification_smart_bar_actions %}
+            <template #smart-bar-actions>
+                {% block abandoned_cart_notification_smart_bar_actions_bulk %}
+                    <sw-button
+                        v-if="selectedCount > 0"
+                        @click="onBulkDelete"
+                        variant="danger"
+                        size="small">
+                        {{ $tc('abandoned-cart-customer.list.bulkDelete') }} ({{ selectedCount }})
+                    </sw-button>
+                {% endblock %}
+            </template>
+        {% endblock %}
+
+        {% block abandoned_cart_notification_content %}
+            <template #content>
+                {% block abandoned_cart_notification_content_card %}
+                    <sw-card
+                        :isLoading="isLoading"
+                        class="abandoned-cart-notification-list">
+                        
+                        {% block abandoned_cart_notification_content_list %}
+                            <sw-data-grid 
+                                identifier="cart-notification-list"
+                                v-if="customers && customers.length > 0"
+                                :isLoading="isLoading"
+                                ref="dataGrid"
+                                :dataSource="customers"
+                                :columns="columns"
+                                :skeletonItemAmount="limit"
+                                :allowInlineEdit="false"
+                                :allowColumnEdit="false"
+                                :showSettings="true"
+                                :showSelection="true"
+                                :compactMode="false"
+                                :selection="selection"
+                                :sortBy="sortBy"
+                                :sortDirection="sortDirection"
+                                :naturalSorting="naturalSorting"
+                                @selection-change="onSelectionChange"
+                                @column-sort="onSortColumn"
+                                class="abandoned-cart-notification-grid">
+
+
+
+                                {% block abandoned_cart_notification_content_name %}
+                                    <template #column-name="{ item }">
+                                        <router-link 
+                                            :to="{name: 'sw.customer.detail', params: {id: item.customerId}}"
+                                            class="sw-data-grid__cell-content">
+                                            {{ item.name }}
+                                        </router-link>
+                                    </template>
+                                {% endblock %}
+
+                                {% block abandoned_cart_notification_content_cart_details %}
+                                    <template #column-cartDetails="{ item }">
+                                       <router-link 
+                                            :to="{name: 'abandoned.cart.customer.detail', params: {customerId: item.customerId}}"
+                                            class="sw-data-grid__cell-content">
+                                            <sw-icon name="regular-eye" small></sw-icon>
+                                        </router-link>
+                                    </template>
+                                {% endblock %}
+
+                                {% block abandoned_cart_notification_content_date_added %}
+                                    <template #column-dateAdded="{ item }">
+                                        <span v-if="item.dateAdded">{{ item.dateAdded }}</span>
+                                        <span v-else>-</span>
+                                    </template>
+                                {% endblock %}
+
+                                {% block abandoned_cart_notification_content_last_notified %}
+                                    <template #column-lastNotified="{ item }">
+                                        <span v-if="item.lastNotified">{{ item.lastNotified}}</span>
+                                        <span v-else>{{ $tc('abandoned-cart-customer.list.textNeverNotified') }}</span>
+                                    </template>
+                                {% endblock %}
+
+                                {% block abandoned_cart_notification_content_column_action %}
+                                    <template #actions="{ item }">
+                                        <sw-context-menu-item 
+                                            :routerLink="{name: 'abandoned.cart.customer.detail', params: {customerId: item.customerId}}"
+                                            icon="regular-eye">
+                                            {{ $tc('abandoned-cart-customer.list.contextMenuDetail') }}
+                                        </sw-context-menu-item>
+                                        
+                                        <sw-context-menu-item 
+                                            @click="onClickNotify(item.customerId)" 
+                                            icon="regular-envelope"
+                                            variant="success">
+                                            {{ $tc('abandoned-cart-customer.list.contextMenuNotify') }}
+                                        </sw-context-menu-item>
+                                        
+                                        <sw-context-menu-item 
+                                            @click="onClickDelete(item.customerId)" 
+                                            icon="regular-trash"
+                                            variant="danger">
+                                            {{ $tc('abandoned-cart-customer.list.contextMenuDelete') }}
+                                        </sw-context-menu-item>
+                                    </template>
+                                {% endblock %}
+
+                                {% block abandoned_cart_notification_content_pagination %}
+                                    <template #pagination>
+                                        <sw-pagination 
+                                            :page="page"
+                                            :limit="limit"
+                                            :total="total"
+                                            :total-visible="7"
+                                            @page-change="onPageChange">
+                                        </sw-pagination>
+                                    </template>
+                                {% endblock %}
+                            </sw-data-grid>
+                        {% endblock %}
+
+                        
+                    </sw-card>
+                {% endblock %}
+
+                {% block abandoned_cart_notification_content_empty_state %}
+                    <sw-empty-state 
+                        v-if="!isLoading && (!customers || customers.length === 0)"
+                        :title="$tc('abandoned-cart-customer.list.messageEmpty')"
+                        icon="regular-shopping-cart"
+                        :subline="$tc('abandoned-cart-customer.list.messageEmptySubline')">
+                    </sw-empty-state>
+                {% endblock %}
+
+                {% block abandoned_cart_notification_bulk_delete_modal %}
+                    <sw-modal
+                        v-if="showBulkDeleteModal"
+                        :title="$tc('abandoned-cart-customer.list.bulkDeleteModalTitle')"
+                        variant="small"
+                        @modal-close="onCloseBulkDeleteModal">
+                        
+                        {% block abandoned_cart_notification_bulk_delete_modal_text %}
+                            <p class="sw-abandoned-cart-list__confirm-bulk-delete-text">
+                                {{ $tc('abandoned-cart-customer.list.bulkDeleteConfirmText', selectedCount, { count: selectedCount }) }}
+                            </p>
+                        {% endblock %}
+
+                        {% block abandoned_cart_notification_bulk_delete_modal_footer %}
+                            <template #modal-footer>
+                                {% block abandoned_cart_notification_bulk_delete_modal_cancel %}
+                                    <sw-button
+                                        size="small"
+                                        @click="onCloseBulkDeleteModal">
+                                        {{ $tc('abandoned-cart-customer.list.buttonCancel') }}
+                                    </sw-button>
+                                {% endblock %}
+
+                               
+                                {% block abandoned_cart_notification_bulk_delete_modal_confirm %}
+                                    <sw-button
+                                        variant="danger"
+                                        size="small"
+                                        @click="onConfirmBulkDelete">
+                                        {{ $tc('abandoned-cart-customer.list.buttonDelete') }}
+                                    </sw-button>
+                                {% endblock %}
+                            </template>
+                        {% endblock %}
+                    </sw-modal>
+                {% endblock %}
+            </template>
+        {% endblock %}
+
+        {% block abandoned_cart_notification_list_sidebar %}
+            <template #sidebar>
+                <sw-sidebar>
+                    {% block abandoned_cart_notification_list_sidebar_refresh %}
+                        <sw-sidebar-item
+                            icon="regular-undo"
+                            :title="$tc('abandoned-cart-customer.list.titleSidebarItemRefresh')"
+                            @click="onRefresh">
+                        </sw-sidebar-item>
+                    {% endblock %}
+                </sw-sidebar>
+            </template>
+        {% endblock %} 
+    </sw-page>
+{% endblock %}

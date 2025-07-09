@@ -1,0 +1,61 @@
+{
+    "abandoned-cart-customer": {
+        "general": {
+            "mainMenuItemGeneral": "Verlassener Wagen",
+            "mainMenuItemDescription": "Verwalten Sie den verlassenen Einkaufswagen hier",
+            "headlineAbandonedCart": "Verlassener Wagen"
+        },
+        "list": {
+            "columnCustomer": "Kundin",
+            "columnSalesChannel": "Verkaufskanal",
+            "columnEmail": "Email",
+            "columnLastNotified": "Zuletzt benachrichtigt",
+            "textNeverNotified": "Nie benachrichtigt",
+            "contextMenuDetail": "Detail",
+            "contextMenuNotify": "Benachrichtigen",
+            "messageEmptyTitle": "Kein verlassener Wagen gefunden",
+            "successTitle": "Erfolg",
+            "successMessage": "Kunde wurde erfolgreich benachrichtigt!",
+            "titleSidebarItemRefresh": "Aktualisierung",
+            "removeSuccessTitle": "Erfolg",
+            "removeSuccessMessage": "Verlassener Wagen wurde erfolgreich gelöscht!",
+            "removeErrorTitle": "Fehler",
+            "removeErrorMessage": "Beim Löschen des verlassenen Wagens ist ein Fehler aufgetreten!",
+            "columnDateAdded": "Erstellt am",
+            "bulkDeleteModalTitle": "Delete selected items",
+            "bulkDeleteConfirmText": "Sind Sie sicher, dass Sie {count} Elemente löschen möchten?",
+            "buttonCancel": "Abbrechen",
+            "buttonDelete": "Löschen",
+            "bulkRemoveSuccessTitle": "Erfolg",
+            "bulkRemoveSuccessMessage": "Die ausgewählten Elemente wurden erfolgreich gelöscht!",
+            "bulkRemoveErrorTitle": "Fehler",
+            "bulkRemoveErrorMessage": "Beim Löschen der ausgewählten Elemente ist ein Fehler aufgetreten!",
+            "messageEmpty": "Kein verlassener Wagen gefunden",
+            "messageEmptySubline": "Kein verlassener Wagen gefunden",
+            "bulkDelete": "Ausgewählte Elemente löschen",
+            "viewCartDetails": "Warenkorbdetails anzeigen",
+            "columnCartDetails": "Warenkorbdetails"
+        },
+        "detail": {
+            "headingTitle": "Verlassenes Wagendetail",
+            "labelEmail": "Email",
+            "labelSalesChannel": "Verkaufskanal",
+            "headingTitleItem": "Artikel",
+            "columnItem": "Artikel",
+            "columnGrossPrice": "Preis (brutto)",
+            "columnNetPrice": "Preis (netto)",
+            "columnQuantity": "Menge",
+            "columnSubTotal": "Zwischensumme",
+            "columnTax": "MwSt",
+            "contextMenuView": "Produkt anzeigen",
+            "cancelButtonText": "Stornieren",
+            "notifyButtonText": "Benachrichtigen",
+            "labelExcludingVat": "Gesamtsumme ohne Mehrwertsteuer",
+            "labelIncludingVat": "Gesamt inklusive Mehrwertsteuer",
+            "successTitle": "Erfolg",
+            "successMessage": "Kunde wurde erfolgreich benachrichtigt!",
+            "warningTitle": "Warnung",
+            "warningMessage": "Scheint, als hätten Sie das Plugin nicht konfiguriert, bitte konfigurieren Sie es zuerst!"
+        }
+    }
+}

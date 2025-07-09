@@ -1,0 +1,34 @@
+{
+    "name": "swag/abandoned-cart",
+    "description": "shopware6-abandoned-cart",
+    "version": "v2.0.0",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Swag Abandoned Cart",
+            "role": "Manufacturer"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.6",
+        "shopware/administration": "~6.6",
+        "shopware/storefront": "~6.6"
+    },
+    "type": "shopware-platform-plugin",
+    "autoload": {
+        "psr-4": {
+            "Swag\\Abandoned\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Swag\\Abandoned\\SwagAbandonedCart",
+        "label": {
+            "en-GB": "Abandoned Cart",
+            "de-DE": "Verlassener Wagen"
+        },
+        "description": {
+            "de-DE": "Behalten Sie jetzt den Überblick über Ihre Kunden, die die Kaufabwicklung noch nicht abgeschlossen haben, und benachrichtigen Sie sie darüber. Email. Der Administrator kann die Liste aller Kunden anzeigen, die den Warenkorb nach dem Hinzufügen der Produkte verlassen haben. Wählen Sie den Vertriebskanal aus, senden Sie eine automatische E-Mail-Benachrichtigung, definieren Sie die Wartezeit für den Warenkorb, legen Sie eine benutzerdefinierte Betreffzeile und eine E-Mail-Nachricht mit Schlüsselwörtern fest.",
+            "en-GB": "Now keep track of your customers who haven't completed the checkout and notify them about. E-mail. The admin can view the list of all customers who left the cart after adding the products. Select the sales channel, send an automatic email notification, define the waiting time for the shopping cart, set a custom subject line and an email message with keywords."
+        }
+    }
+}

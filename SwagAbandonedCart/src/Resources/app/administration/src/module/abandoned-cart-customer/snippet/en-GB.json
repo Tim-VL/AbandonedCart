@@ -1,0 +1,63 @@
+{
+    "abandoned-cart-customer": {
+        "general": {
+            "mainMenuItemGeneral": "Abandoned Cart",
+            "mainMenuItemDescription": "Manage Abandoned Cart Here",
+            "headlineAbandonedCart": "Abandoned Cart"
+        },
+        "list": {
+            "columnCustomer": "Customer",
+            "columnSalesChannel": "Sales Channel",
+            "columnEmail": "Email",
+            "columnLastNotified": "Last Notified",
+            "textNeverNotified": "Never Notified",
+            "contextMenuDetail": "Detail",
+            "contextMenuNotify": "Notify",
+            "messageEmptyTitle": "No Abandoned Cart Found",
+            "successTitle": "Success",
+            "successMessage": "Customer was notified successfully!",
+            "titleSidebarItemRefresh": "Refresh",
+            "contextMenuDelete": "Delete",
+            "removeSuccessTitle": "Success",
+            "removeSuccessMessage": "Abandoned Cart was deleted successfully!",
+            "removeErrorTitle": "Error",
+            "removeErrorMessage": "An error occurred while deleting the abandoned cart!",
+            "columnDateAdded": "Created At",
+            "bulkDeleteModalTitle": "Delete selected items",
+            "bulkDeleteConfirmText": "Are you sure you want to delete {count} items(s)?",
+            "buttonCancel": "Cancel",
+            "buttonDelete": "Delete",
+            "bulkRemoveSuccessTitle": "Success",
+            "bulkRemoveSuccessMessage": "The selected items were deleted successfully!",
+            "bulkRemoveErrorTitle": "Error",
+            "bulkRemoveErrorMessage": "An error occurred while deleting the selected items!",
+            "messageEmpty": "No Abandoned Cart Found",
+            "messageEmptySubline": "No Abandoned Cart Found",
+            "bulkDelete": "Delete Selected",
+            "viewCartDetails": "View cart details",
+            "columnCartDetails": "Cart details"
+
+        },
+        "detail": {
+            "headingTitle": "Abandoned Cart Detail",
+            "labelEmail": "Email",
+            "labelSalesChannel": "Sales Channel",
+            "headingTitleItem": "Items",
+            "columnItem": "Item",
+            "columnGrossPrice": "Price (gross)",
+            "columnNetPrice": "Price (net)",
+            "columnQuantity": "Quantity",
+            "columnSubTotal": "Subtotal",
+            "columnTax": "VAT",
+            "contextMenuView": "View Product",
+            "cancelButtonText": "Cancel",
+            "notifyButtonText": "Notify",
+            "labelExcludingVat": "Total Excluding VAT",
+            "labelIncludingVat": "Total Including VAT",
+            "successTitle": "Success",
+            "successMessage": "Customer was notified successfully!",
+            "warningTitle": "Warning",
+            "warningMessage": "Seems like you didn't configure the plugin, please configure it first!"
+        }
+    }
+}
