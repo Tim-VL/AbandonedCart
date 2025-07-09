@@ -597,7 +597,7 @@ class AbandonedCartService
     
         $salesChannelUrl = $this->getUrl($customer->getSalesChannel()->getDomains());
         
-        // Update 09072025
+        // Update 09072025 responsive design
         $products .= '<!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
        
         $products .= '<style type="text/css">';
