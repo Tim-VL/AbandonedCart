@@ -1,4 +1,5 @@
 console.log('Abandoned Cart admin module loaded');
+
 import './page/cart-notification-detail';
 import './page/cart-notification-list';
 import './component/abandone-cart-item-grid';
@@ -16,7 +17,6 @@ Module.register('abandoned-cart-customer', {
     title: 'abandoned-cart-customer.general.mainMenuItemGeneral',
 
     color: '#57D9A3',
-
     icon: 'regular-shopping-cart',
 
     snippets: {
@@ -29,7 +29,8 @@ Module.register('abandoned-cart-customer', {
             component: 'cart-notification-list',
             path: 'index',
             meta: {
-                parentPath: 'sw.order.index'
+                parentPath: 'sw.order.index',
+                privilege: 'order.viewer'
             }
         },
 
@@ -37,7 +38,8 @@ Module.register('abandoned-cart-customer', {
             component: 'cart-notification-detail',
             path: 'detail/:customerId',
             meta: {
-                parentPath: 'abandoned.cart.customer.index'
+                parentPath: 'abandoned.cart.customer.index',
+                privilege: 'order.viewer'
             }
         }
     },
@@ -49,7 +51,8 @@ Module.register('abandoned-cart-customer', {
             parent: 'sw-order',
             path: 'abandoned.cart.customer.index',
             position: 100,
-            icon: 'regular-shopping-cart'
+            icon: 'regular-shopping-cart',
+            privilege: 'order.viewer'
         }
     ]
 });
