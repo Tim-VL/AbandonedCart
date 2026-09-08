@@ -43,12 +43,17 @@
         <service id="Swag\Abandoned\ScheduledTask\AbandonedCartNotificationTask">
             <tag name="shopware.scheduled.task" />
         </service>
-        <service id="Swag\Abandoned\ScheduledTask\AbandonedCartNotificationTaskHandler">
-            <tag name="messenger.message_handler" />
-            <argument type="service" id="scheduled_task.repository"/>
-            <argument type="service" id="Swag\Abandoned\Service\AbandonedCartService"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-        </service>
+		<service id="Swag\Abandoned\ScheduledTask\AbandonedCartNotificationTaskHandler">
+		    <tag name="messenger.message_handler"/>
+		
+		    <!-- Required by Shopware ScheduledTaskHandler -->
+		    <argument type="service" id="scheduled_task.repository"/>
+		    <argument type="service" id="logger"/>
+		
+		    <!-- Plugin services -->
+		    <argument type="service" id="Swag\Abandoned\Service\AbandonedCartService"/>
+		    <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+		</service>
         <service id="Swag\Abandoned\Subscriber\AbandonedCartEventSubscriber">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="wk_abandoned_cart_notification.repository"/>

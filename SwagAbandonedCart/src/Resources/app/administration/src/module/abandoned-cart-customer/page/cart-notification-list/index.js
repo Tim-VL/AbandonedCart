@@ -1,5 +1,4 @@
 const { Component, Mixin } = Shopware;
-const { Criteria } = Shopware.Data;
 
 import './cart-notification-list.scss';
 import template from './cart-notification-list.html.twig';
@@ -7,11 +6,12 @@ import template from './cart-notification-list.html.twig';
 Component.register('cart-notification-list', {
     template,
 
-    inject: ['repositoryFactory', 'AbandonedCartApiService'],
+   inject: [
+    'AbandonedCartApiService'
+	],
 
     mixins: [
         Mixin.getByName('notification'),
-        Mixin.getByName('salutation'),
         Mixin.getByName('listing')
     ],
 

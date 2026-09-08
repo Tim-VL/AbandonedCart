@@ -104,25 +104,29 @@ class AbandonedCartService
         return $criteria;
     }
 
-    protected static function forDefinitionCheck(): bool
-    {
-        return \count(array_filter(
-            self::$staticConnection->getSchemaManager()->listTableColumns('cart'),
-            static function (Column $column): bool {
-                return $column->getName() === 'payload';
-            }
-        )) > 0;
-    }
+	protected static function forDefinitionCheck(): bool
+	{
+	    return \count(array_filter(
+	        self::$staticConnection
+	            ->createSchemaManager()
+	            ->listTableColumns('cart'),
+	        static function (Column $column): bool {
+	            return $column->getName() === 'payload';
+	        }
+	    )) > 0;
+	}
 
-    protected function checkPayloadExist(): bool
-    {
-        return \count(array_filter(
-            $this->connection->getSchemaManager()->listTableColumns('cart'),
-            static function (Column $column): bool {
-                return $column->getName() === 'payload';
-            }
-        )) > 0;
-    }
+	protected function checkPayloadExist(): bool
+	{
+	    return \count(array_filter(
+	        $this->connection
+	            ->createSchemaManager()
+	            ->listTableColumns('cart'),
+	        static function (Column $column): bool {
+	            return $column->getName() === 'payload';
+	        }
+	    )) > 0;
+	}
 
     public function getCartCriteria_($customerIds, $salesChannel = null, $page = null, $limit = null, $sortBy = null, $sortDirection = null){
         $criteria = new Criteria();
@@ -597,9 +601,9 @@ class AbandonedCartService
     
         $salesChannelUrl = $this->getUrl($customer->getSalesChannel()->getDomains());
         
-        // Update 09072025 responsive design
+        // Update 09072025
+        $products = '';
         $products .= '<!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-       
         $products .= '<style type="text/css">';
         $products .= '   .mail-template table td, table th {';
         $products .= '      padding: 6px;';

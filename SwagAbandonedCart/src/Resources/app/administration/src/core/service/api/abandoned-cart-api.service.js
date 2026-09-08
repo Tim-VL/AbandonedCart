@@ -1,4 +1,4 @@
-const { ApiService}  = Shopware.Classes;
+const { ApiService } = Shopware.Classes;
 
 class AbandonedCartApiService extends ApiService {
     constructor(httpClient, loginService, apiEndpoint = 'abandoned-cart') {
@@ -9,98 +9,94 @@ class AbandonedCartApiService extends ApiService {
         let apiRoute = `${this.getApiBasePath()}/config`;
 
         if (salesChannelId) {
-            apiRoute = `${this.getApiBasePath()}/config/${salesChannelId}`;
+            apiRoute = `${apiRoute}/${salesChannelId}`;
         }
+
         return this.httpClient.post(
-            apiRoute, {
-                config: config
-            }, {
+            apiRoute,
+            {
+                config
+            },
+            {
                 headers: this.getBasicHeaders()
             }
-        ).then((response) => {
-            return ApiService.handleResponse(response);
-        });
+        ).then(ApiService.handleResponse);
     }
 
     getConfig(salesChannelId = null) {
         let apiRoute = `${this.getApiBasePath()}/config`;
 
         if (salesChannelId) {
-            apiRoute = `${this.getApiBasePath()}/config/${salesChannelId}`;
+            apiRoute = `${apiRoute}/${salesChannelId}`;
         }
 
         return this.httpClient.get(
-            apiRoute, {}, {
+            apiRoute,
+            {
                 headers: this.getBasicHeaders()
             }
-        ).then((response) => {
-            return ApiService.handleResponse(response);
-        });
+        ).then(ApiService.handleResponse);
     }
 
-    //Removed the abandoned cart
     removeFromNotificationList(customerId) {
-        let apiRoute = `${this.getApiBasePath()}/remove-notification`;
         return this.httpClient.post(
-            apiRoute, {customerId: customerId}, {
+            `${this.getApiBasePath()}/remove-notification`,
+            {
+                customerId
+            },
+            {
                 headers: this.getBasicHeaders()
             }
-        ).then((response) => {
-            return ApiService.handleResponse(response);
-        });
+        ).then(ApiService.handleResponse);
     }
 
-    // Bulk Delete the abandoned carts
     bulkRemoveFromNotificationList(customerIds) {
-        let apiRoute = `${this.getApiBasePath()}/bulk-remove-notification`;
         return this.httpClient.post(
-            apiRoute, {customerIds: customerIds}, {
+            `${this.getApiBasePath()}/bulk-remove-notification`,
+            {
+                customerIds
+            },
+            {
                 headers: this.getBasicHeaders()
             }
-        ).then((response) => {
-            return ApiService.handleResponse(response);
-        });
+        ).then(ApiService.handleResponse);
     }
-
 
     search(term, page, limit, sortBy = null, sortDirection = null) {
-        let apiRoute = `${this.getApiBasePath()}/customer`;
         return this.httpClient.post(
-            apiRoute, {
-                term: term, 
-                page: page, 
-                limit: limit,
-                sortBy: sortBy,
-                sortDirection: sortDirection
-            }, {
+            `${this.getApiBasePath()}/customer`,
+            {
+                term,
+                page,
+                limit,
+                sortBy,
+                sortDirection
+            },
+            {
                 headers: this.getBasicHeaders()
             }
-        ).then((response) => {
-            return ApiService.handleResponse(response);
-        });
+        ).then(ApiService.handleResponse);
     }
-    
 
     getCustomer(customerId) {
-        let apiRoute = `${this.getApiBasePath()}/customer/` + customerId;
         return this.httpClient.get(
-            apiRoute, {}, {
+            `${this.getApiBasePath()}/customer/${customerId}`,
+            {
                 headers: this.getBasicHeaders()
             }
-        ).then((response) => {
-            return ApiService.handleResponse(response);
-        });
+        ).then(ApiService.handleResponse);
     }
 
     notify(customerId) {
-        let apiRoute = `${this.getApiBasePath()}/notify`;
         return this.httpClient.post(
-            apiRoute, {customerId: customerId}, {
+            `${this.getApiBasePath()}/notify`,
+            {
+                customerId
+            },
+            {
                 headers: this.getBasicHeaders()
             }
-        ).then((response) => {
-            return ApiService.handleResponse(response);
-        });
+        ).then(ApiService.handleResponse);
     }
 }
 

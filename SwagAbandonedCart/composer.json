@@ -1,18 +1,18 @@
 {
     "name": "swag/abandoned-cart",
     "description": "shopware6-abandoned-cart",
-    "version": "v2.0.0",
+    "version": "v6.7.1",
     "license": "proprietary",
     "authors": [
         {
-            "name": "Swag Abandoned Cart",
+            "name": "NoSite.nl",
             "role": "Manufacturer"
         }
     ],
     "require": {
-        "shopware/core": "~6.6",
-        "shopware/administration": "~6.6",
-        "shopware/storefront": "~6.6"
+        "shopware/core": "~6.7",
+        "shopware/administration": "~6.7",
+        "shopware/storefront": "~6.7"
     },
     "type": "shopware-platform-plugin",
     "autoload": {

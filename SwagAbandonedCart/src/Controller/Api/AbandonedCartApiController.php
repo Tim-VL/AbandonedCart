@@ -100,7 +100,12 @@ class AbandonedCartApiController extends AbstractController
     #[Route(path: '/api/abandoned-cart/bulk-remove-notification', name: 'swag.abandoned-cart.bulk-remove-notification', methods: ['POST'])]
     public function bulkRemoveFromNotificationList(RequestDataBag $data, Context $context): JsonResponse
     {
-        $customerIds = $data->all('customerIds', []);
+		        // Get customer IDs from the request.
+		$customerIds = $data->get('customerIds', []);
+		
+		if (!is_array($customerIds)) {
+		    $customerIds = [];
+		}
         
         $response = $this->abandonedCartService->bulkRemoveFromNotificationList($customerIds, $context);
         return new JsonResponse($response);
